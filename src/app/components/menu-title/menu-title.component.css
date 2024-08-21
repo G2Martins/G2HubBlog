@@ -11,7 +11,8 @@
     font-family: 'Segoe UI';
     
     background: linear-gradient(90deg, #6b07bd, #6b07bd); /* Gradiente de fundo */
-   
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: inline-block;
     padding: 10px 20px;
     border-radius: 10px;
