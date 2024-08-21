@@ -8,11 +8,10 @@
     margin-bottom: 15px;
     font-size: 80px; /* Ajuste o tamanho para melhor adequação */
     font-weight: bold;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI';
     
     background: linear-gradient(90deg, #6b07bd, #6b07bd); /* Gradiente de fundo */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+   
     display: inline-block;
     padding: 10px 20px;
     border-radius: 10px;
