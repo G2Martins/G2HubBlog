@@ -10,12 +10,6 @@ utilizando ferramentas como Angular, Java e TypeScript modelado com um layout do
 ## 📚 Documentação
 - [Repositório Curso DIO](https://github.com/felipeAguiarCode/angular-playground/tree/main)
 
-## 💻 Resumos das Aulas
-
-| Aulas | Resumos |
-|-------|---------|
-| Angular | [Clique aqui](https://github.com/G2Martins/DIO_Projects_FullStack_Bootcamp/tree/main/Angular) |
-
 ## 🔍 Referências
 - [Digital Innvoation One](https://www.dio.me)
 - [Angular Documentation](https://angular.dev/overview)
