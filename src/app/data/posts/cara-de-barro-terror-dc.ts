@@ -1,0 +1,30 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "cara-de-barro-terror-dc",
+  title: "Cara-de-Barro: a DC aposta no terror com roteiro de Mike Flanagan",
+  dek: "O vilão do Batman ganha filme próprio, com direção de James Watkins e classificação 18 anos. Estreia nesta quinta (22). Saiba o que esperar.",
+  section: "filmes",
+  kind: "noticia",
+  tags: ["DC", "Terror", "Estreias"],
+  date: "2026-10-21",
+  hero: { ref: "movie:1400940", pick: 0, alt: "Tom Rhys Harries em cena de Cara-de-Barro" },
+  body: [
+    { p: "Um dos vilões mais trágicos da galeria do Batman chega aos cinemas brasileiros nesta quinta-feira (22). *Cara-de-Barro* é produzido pela DC Studios e não esconde o gênero: é um filme de terror, com classificação indicativa de 18 anos." },
+    { ficha: "movie:1400940" },
+    { h2: "Quem é Matt Hagen" },
+    { p: "Segundo a sinopse oficial, Matt Hagen, vivido por Tom Rhys Harries, sai das ruas de Gotham para o estrelato em Hollywood, até que um chefão do crime local o deixa desfigurado. Abandonado por todos, ele recorre a um tratamento de ponta que devolve sua aparência, mas altera sua percepção da realidade e o empurra para uma espiral de obsessão e vingança." },
+    { p: "Nos quadrinhos, o nome Cara-de-Barro já passou por vários personagens. O primeiro foi Basil Karlo, um ator de filmes de terror que estreou em 1940. Matt Hagen, o caçador de tesouros que ganha a capacidade de moldar o próprio corpo, chegou em 1961 e ficou marcado pela ideia de um homem que pode ser qualquer pessoa, menos ele mesmo. O filme parece misturar as duas origens, ao fazer de Hagen um astro de Hollywood." },
+    { p: "Naomi Ackie interpreta Caitlyn Corr, e Eddie Marsan, Max Minghella e David Dencik completam o elenco principal, de acordo com o TMDB." },
+    { img: "movie:1400940", pick: 1, caption: "Cara-de-Barro tem 109 minutos. Imagem de divulgação." },
+    { h2: "A dupla por trás das câmeras" },
+    { p: "A direção é de James Watkins, que tem no currículo *A Mulher de Preto* e a refilmagem americana de *Não Fale o Mal*. O roteiro é de Mike Flanagan, nome de séries como *A Maldição da Residência Hill* e *Missa da Meia-Noite*. Juntos, são uma combinação que promete mais horror corporal e drama do que pancadaria." },
+    { quote: "Cara-de-Barro sempre foi um vilão sobre identidade e aparência. Faz sentido que alguém finalmente o trate como personagem de terror." },
+    { h2: "Terror de verdade em um filme de super-herói" },
+    { p: "A classificação de 18 anos no Brasil diz muito. Filmes de personagens de quadrinhos costumam mirar a faixa de 12 a 14 anos para alcançar o maior público possível. *Cara-de-Barro* vai na direção contrária e aposta em um nicho que vem crescendo: quem gosta de terror e acompanha esses universos, mas quer algo diferente das batalhas de sempre." },
+    { h2: "Precisa conhecer o Batman?" },
+    { p: "Não. Pela sinopse, o filme é centrado em Hagen e funciona como história de origem. Gotham é cenário, não pré-requisito." },
+    { box: "Matéria escrita antes da estreia. A redação ainda não assistiu ao filme.", title: "Antes da sessão" },
+    { p: "Se o gênero é a sua praia, veja as [estreias de terror de novembro](/artigo/estreias-de-novembro-nos-cinemas)." },
+  ],
+};

@@ -1,0 +1,84 @@
+<a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-lg focus:bg-violet focus:px-4 focus:py-2 focus:text-white">Pular para o conteúdo</a>
+
+<!-- Portfolio disclaimer: always visible, first thing a visitor reads. -->
+<div class="border-b border-line bg-well text-[12px] leading-snug text-ink-2">
+  <div class="wrap flex items-center justify-center gap-2 py-2 text-center">
+    <span class="live-dot hidden h-1.5 w-1.5 shrink-0 rounded-full bg-accent sm:inline-block" aria-hidden="true"></span>
+    <p>
+      Projeto de portfólio de {{ links.author }}. Conteúdo de demonstração.
+      <a [href]="links.project" class="ml-1 whitespace-nowrap text-accent underline underline-offset-2">Sobre o projeto</a>
+    </p>
+  </div>
+</div>
+
+<header class="sticky top-0 z-40 border-b border-line bg-bg/95 backdrop-blur-sm">
+  <div class="wrap flex h-16 items-center gap-6">
+    <a routerLink="/" class="logo shrink-0" aria-label="G2 Hub, página inicial">G2<b>HUB</b></a>
+    <nav class="hidden items-center gap-6 lg:flex" aria-label="Seções">
+      @for (n of nav; track n.path) {
+        <a [routerLink]="n.path" routerLinkActive="active" class="navlink">{{ n.label }}</a>
+      }
+    </nav>
+    <form class="ml-auto flex items-center" role="search" action="busca/" method="get" (submit)="search($event, q.value)">
+      <label for="q-top" class="sr-only">Buscar no G2 Hub</label>
+      <input #q id="q-top" name="q" type="search" placeholder="Buscar" autocomplete="off"
+             class="hidden h-10 w-44 rounded-l-lg border border-r-0 border-line-2 bg-well px-3 text-[14px] text-ink placeholder:text-dim focus:border-accent focus:outline-none sm:block xl:w-56">
+      <button type="submit" class="grid h-10 w-10 place-items-center rounded-lg border border-line-2 bg-well text-ink-2 hover:text-ink sm:rounded-l-none" aria-label="Buscar">
+        <app-icon name="search" [size]="17" />
+      </button>
+    </form>
+  </div>
+  <!-- Mobile/tablet: sections scroll sideways (no menu to open, works without JS). -->
+  <nav class="no-scrollbar board-fade overflow-x-auto border-t border-line/70 lg:hidden" aria-label="Seções">
+    <div class="wrap flex h-11 items-center gap-6">
+      @for (n of nav; track n.path) {
+        <a [routerLink]="n.path" routerLinkActive="active" class="navlink">{{ n.label }}</a>
+      }
+    </div>
+  </nav>
+</header>
+
+<main id="conteudo" tabindex="-1" class="relative outline-none">
+  <router-outlet />
+</main>
+
+<footer class="mt-24 border-t border-line bg-well/80">
+  <div class="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.4fr]">
+    <div>
+      <a routerLink="/" class="logo" aria-label="G2 Hub, página inicial">G2<b>HUB</b></a>
+      <p class="mt-4 max-w-xs text-[13px] leading-relaxed text-ink-2">
+        Games, filmes e séries com foco no que chega ao Brasil. Textos de demonstração escritos para este projeto de portfólio.
+      </p>
+      <a href="rss.xml" class="mt-4 inline-flex items-center gap-2 text-[13px] text-ink-2 hover:text-ink"><app-icon name="rss" [size]="15" /> Feed RSS</a>
+    </div>
+    <div>
+      <p class="eyebrow">Seções</p>
+      <ul class="mt-4 space-y-2.5 text-[14px] text-ink-2">
+        @for (n of nav; track n.path) { <li><a [routerLink]="n.path" class="hover:text-ink">{{ n.label }}</a></li> }
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">G2 Hub</p>
+      <ul class="mt-4 space-y-2.5 text-[14px] text-ink-2">
+        <li><a routerLink="/autor/redacao-g2-hub/" class="hover:text-ink">Redação</a></li>
+        <li><a routerLink="/busca/" class="hover:text-ink">Busca</a></li>
+        <li><a [href]="links.project" class="hover:text-ink">Sobre o projeto</a></li>
+        <li><a [href]="links.repo" class="inline-flex items-center gap-2 hover:text-ink"><app-icon name="github" [size]="14" /> Código no GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Créditos</p>
+      <ul class="mt-4 space-y-2.5 text-[13px] leading-relaxed text-ink-2">
+        <li><a href="https://www.themoviedb.org" class="hover:text-ink">Este produto usa a API do TMDB, mas não é endossado ou certificado pelo TMDB.</a></li>
+        <li><a href="https://www.igdb.com" class="hover:text-ink">Dados de jogos fornecidos por IGDB.com</a></li>
+        <li><a [href]="links.portfolio" class="hover:text-ink">Desenvolvido por {{ links.author }}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="wrap flex flex-col gap-2 py-6 text-[12px] leading-relaxed text-dim md:flex-row md:items-center md:justify-between">
+      <p>Imagens de divulgação via TMDB e IGDB. Marcas pertencem aos respectivos donos; sem afiliação com estúdios ou plataformas.</p>
+      <p class="shrink-0">© {{ year }} · <a [href]="links.portfolio" class="hover:text-ink-2">{{ links.author }}</a></p>
+    </div>
+  </div>
+</footer>

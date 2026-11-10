@@ -1,0 +1,36 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "review-hollow-knight-silksong",
+  title: "Review: Hollow Knight: Silksong é difícil, generoso e lindo de doer",
+  dek: "Um ano depois do lançamento, revisitamos a aventura de Hornet em Pharloom. Silksong cobra muito do jogador e devolve ainda mais.",
+  section: "games",
+  kind: "review",
+  tags: ["Indie", "Metroidvania", "Nintendo", "PlayStation", "Xbox"],
+  date: "2026-10-22",
+  hero: { ref: "game:115289", pick: 0, alt: "Hornet, protagonista de Hollow Knight: Silksong, em arte oficial" },
+  score: 9,
+  verdict: {
+    summary: "Uma continuação que não tem medo de ser maior e mais exigente que o original. Quem aceita o desafio encontra um dos melhores jogos de plataforma e exploração da década.",
+    good: ["Movimentação de Hornet rápida e precisa", "Direção de arte e trilha sonora impecáveis", "Mundo denso, cheio de segredos que recompensam a curiosidade"],
+    bad: ["Picos de dificuldade que podem afastar iniciantes", "Algumas caminhadas longas até chefes depois de cada derrota"],
+  },
+  body: [
+    { p: "A espera por *Hollow Knight: Silksong* virou piada na internet durante anos. Quando o jogo da Team Cherry finalmente saiu, em 4 de setembro de 2025, chegou de uma vez a PC, PlayStation 4 e 5, Xbox One e Series, Switch e Switch 2. Mais de um ano depois, com a poeira baixada, dá para avaliar com calma: valeu a espera, e com folga." },
+    { ficha: "game:115289" },
+    { h2: "Hornet não é o Cavaleiro" },
+    { p: "A protagonista agora é Hornet, a guerreira que enfrentamos e ajudamos no primeiro jogo. Ela é capturada e levada a Pharloom, um reino governado por seda e canção, e precisa escalar até a cidadela no topo. A diferença aparece no primeiro minuto: Hornet é mais ágil, salta mais alto, avança em diagonal e se agarra a bordas com naturalidade." },
+    { p: "Essa leveza muda o ritmo de tudo. O combate fica mais agressivo, as plataformas pedem precisão maior, e o jogo confia que você vai aprender rápido. A cura também mudou: em vez de recuperar uma máscara por vez, Hornet usa a seda acumulada para curar várias de uma só vez, o que exige escolher o momento certo no meio da luta." },
+    { img: "game:115289", pick: 4, caption: "Pharloom tem biomas muito diferentes entre si. Imagem de divulgação." },
+    { h2: "Um mundo que esconde coisas" },
+    { p: "Pharloom é enorme e quase sempre recompensa quem sai do caminho principal. Ferramentas novas, atalhos, missões de personagens secundários e brasões que alteram o estilo de luta aparecem em cantos que parecem vazios. É o tipo de design que transforma o mapa em conversa entre amigos: cada um encontrou uma coisa em um lugar diferente." },
+    { quote: "Silksong não pede desculpas pela dificuldade. Ele confia em você, e é justamente essa confiança que torna cada vitória tão boa." },
+    { h2: "A dificuldade é o assunto" },
+    { p: "Não dá para falar de *Silksong* sem falar de dificuldade. Alguns chefes são duros de verdade, e certas áreas punem erros com um dano maior do que o primeiro jogo aplicava. Em alguns trechos, a caminhada de volta até um chefe depois de morrer cansa mais do que a luta em si." },
+    { p: "Ainda assim, raramente o jogo parece injusto. Os padrões dos inimigos são legíveis, a resposta dos controles é imediata e quase toda derrota ensina alguma coisa. Para quem nunca jogou um metroidvania, a recomendação é começar pelo *Hollow Knight* original. Para quem já passou por Hallownest, *Silksong* é obrigatório." },
+    { h2: "Arte e som" },
+    { p: "O desenho à mão continua lindo, agora com mais cor e mais variedade de cenários. A trilha acompanha cada região com personalidade própria, e o som do combate, seco e metálico, ajuda a ler o que está acontecendo na tela. Em um Switch 2 no modo portátil ou em uma TV grande, o jogo impressiona do mesmo jeito." },
+    { h2: "Veredito" },
+    { p: "*Silksong* é um jogo que faz poucas concessões e acerta quase todas as escolhas. Exige paciência, mas devolve cada minuto em descobertas e momentos de pura satisfação. Nota 9, com a ressalva honesta de que ele não é para todo mundo." },
+  ],
+};

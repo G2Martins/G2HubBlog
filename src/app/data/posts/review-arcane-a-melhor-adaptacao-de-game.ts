@@ -1,0 +1,37 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "review-arcane-a-melhor-adaptacao-de-game",
+  title: "Review: Arcane continua sendo a melhor adaptação de game já feita",
+  dek: "Duas temporadas, 18 episódios e uma história completa. Revisitamos a série de League of Legends que mudou o que se espera de animação adulta.",
+  section: "series",
+  kind: "review",
+  tags: ["Animação", "Netflix", "Adaptação", "Riot Games"],
+  date: "2026-10-20",
+  hero: { ref: "tv:94605", pick: 0, alt: "Vi e Jinx em cena de Arcane" },
+  score: 9.5,
+  verdict: {
+    summary: "Animação deslumbrante, personagens complexos e uma história fechada do começo ao fim. Não precisa conhecer League of Legends para se apaixonar.",
+    good: ["Animação que mistura 2D e 3D com estilo próprio", "A relação entre Vi e Jinx como centro emocional", "Final que fecha a história sem enrolação"],
+    bad: ["Segunda temporada acelera tramas que pediam mais espaço", "Alguns coadjuvantes somem no meio do caminho"],
+  },
+  body: [
+    { p: "Quando *Arcane* estreou na Netflix, em novembro de 2021, a expectativa era baixa: uma série animada feita para vender um jogo competitivo. Três anos depois, com a segunda e última temporada encerrada em novembro de 2024, ficou claro que a série era outra coisa. Hoje, *Arcane* é a régua pela qual medimos qualquer adaptação de videogame." },
+    { ficha: "tv:94605" },
+    { h2: "Duas cidades, duas irmãs" },
+    { p: "A história se divide entre Piltover, a cidade do progresso, e Zaun, a cidade subterrânea que sustenta esse progresso com miséria. No meio estão Vi e Powder, irmãs órfãs de Zaun cujo vínculo se parte de forma violenta. Powder se torna Jinx, e a série inteira é, no fundo, sobre o que restou daquelas duas meninas." },
+    { p: "Hailee Steinfeld dá voz a Vi e Ella Purnell a Jinx, no original. Kevin Alejandro é Jayce, Katie Leung é Caitlyn e Harry Lloyd é Viktor, dois cientistas cuja descoberta muda o equilíbrio entre as cidades." },
+    { img: "tv:94605", pick: 2, caption: "Piltover e Zaun têm identidades visuais opostas. Imagem de divulgação." },
+    { h2: "A animação" },
+    { p: "O estúdio francês Fortiche criou um estilo que parece pintura em movimento: personagens em 3D com texturas desenhadas, efeitos em 2D, cores que mudam conforme o estado mental de quem está em cena. As sequências que mostram a cabeça de Jinx são das coisas mais criativas já feitas em animação para TV." },
+    { quote: "Arcane não pede que você conheça o jogo. Pede só que você se importe com duas irmãs. O resto vem junto." },
+    { h2: "Música como linguagem" },
+    { p: "A trilha é outro acerto. A abertura com *Enemy*, do Imagine Dragons, virou hit fora do público de games, e a série usa canções originais como parte da narrativa, em montagens que resumem anos de história em poucos minutos. Raramente uma adaptação de jogo teve tanta personalidade sonora." },
+    { h2: "A segunda temporada" },
+    { p: "Assim como a primeira, a temporada final chegou dividida em três atos, lançados em semanas seguidas de novembro de 2024. É mais ambiciosa e mais apressada." },
+    { p: "Algumas tramas políticas se resolvem rápido demais e personagens secundários perdem espaço. Mesmo assim, o final é corajoso e fecha a história de forma coerente, algo raro em séries que dependem de franquias." },
+    { h2: "Veredito" },
+    { p: "*Arcane* é uma série completa, sem pontas soltas que dependam de renovação, e isso por si só já a torna uma ótima maratona. Some a isso a melhor animação da TV recente e um elenco de vozes impecável. Nota 9,5." },
+    { p: "Quer mais? Veja o nosso [ranking das melhores séries baseadas em games](/artigo/series-baseadas-em-games-ranking)." },
+  ],
+};

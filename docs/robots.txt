@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /G2HubBlog/busca/
+
+Sitemap: https://g2martins.github.io/G2HubBlog/sitemap.xml

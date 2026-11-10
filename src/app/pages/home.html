@@ -1,0 +1,155 @@
+<!-- Masthead: the old G2 Hub Blog title (white box between violet rules), rebuilt as a broadsheet nameplate. -->
+<section class="wrap pt-6 sm:pt-8" aria-labelledby="mast">
+  <div class="mast-rule rule-in"></div>
+  <div class="grid items-center gap-3 py-5 sm:grid-cols-[1fr_auto_1fr] sm:py-6">
+    <p class="meta order-2 text-center sm:order-1 sm:text-left">Edição de {{ editionDay }}<span class="sm:hidden">, </span><br class="hidden sm:inline">{{ edition }}</p>
+    <h1 id="mast" class="order-1 text-center sm:order-2">
+      <span class="mast-box text-[64px] sm:text-[96px] lg:text-[112px]">G2<b>HUB</b></span>
+      <span class="sr-only">: notícias, reviews e guias de games, filmes e séries</span>
+    </h1>
+    <p class="meta order-3 hidden text-right sm:block">Games · Filmes · Séries</p>
+  </div>
+  <div class="mast-rule rule-in"></div>
+</section>
+
+<!-- Featured story + trending -->
+<section class="wrap mt-8 grid gap-8 lg:grid-cols-12 lg:gap-10" aria-label="Destaques">
+  <article class="stretch lg:col-span-8">
+    <div class="media aspect-video rounded-xl">
+      <img class="zoom" [src]="lead.image.src" [attr.srcset]="lead.image.srcset" sizes="(min-width: 1280px) 820px, (min-width: 1024px) 66vw, 100vw"
+           [alt]="lead.hero.alt" width="1280" height="720" fetchpriority="high" decoding="async">
+    </div>
+    <div class="mt-5 max-w-3xl">
+      <p class="eyebrow sec-{{ lead.section }}">Destaque · {{ label.section(lead.section) }} · {{ label.kind(lead.kind) }}</p>
+      <h2 class="hl-xl mt-3 text-[34px] sm:text-[46px] lg:text-[54px]">
+        <a class="stretch-link" [routerLink]="['/artigo', lead.slug]">{{ lead.title }}</a>
+      </h2>
+      <p class="dek mt-4 text-[17px] leading-relaxed sm:text-[19px]">{{ lead.dek }}</p>
+      <p class="meta mt-4">{{ lead.minutes }} min de leitura · Redação G2 Hub</p>
+    </div>
+  </article>
+
+  <aside class="lg:col-span-4" aria-labelledby="em-alta">
+    <h2 id="em-alta" class="eyebrow">Em alta</h2>
+    <ol class="mt-4 divide-y divide-line border-y border-line">
+      @for (p of trending; track p.slug) {
+        <li class="py-5"><app-card [p]="p" variant="row" [dek]="false" /></li>
+      }
+    </ol>
+  </aside>
+</section>
+
+<!-- Lançamentos da semana: departures board -->
+@if (week.length) {
+  <section class="wrap mt-16" aria-labelledby="semana" reveal>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Próximos 7 dias</p>
+        <h2 id="semana" class="hl mt-2 text-[26px] sm:text-[30px]">Lançamentos da semana</h2>
+      </div>
+      <a routerLink="/lancamentos" class="more inline-flex items-center gap-1.5">Calendário completo <app-icon name="arrow-right" [size]="14" /></a>
+    </div>
+    <div class="well mt-6 overflow-hidden"><ul class="board board-fade divide-x divide-line">
+      @for (w of week; track w.ref + w.date) {
+        <li class="stretch flex gap-3 p-4">
+          <div class="w-[46px] shrink-0">
+            @if (w.poster) {
+              <img class="aspect-[2/3] w-[46px] rounded-md bg-well object-cover" [src]="w.poster.src" [alt]="''" width="46" height="69" loading="lazy" decoding="async">
+            }
+          </div>
+          <div class="min-w-0">
+            <p class="font-mono text-[11px] uppercase tracking-[.12em] text-accent">{{ w.wd }} · {{ w.day }}</p>
+            <h3 class="mt-1.5 text-[14.5px] font-medium leading-snug">
+              @if (w.post) {
+                <a class="stretch-link clamp-2" [routerLink]="['/artigo', w.post.slug]">{{ w.title }}</a>
+              } @else {
+                <a class="stretch-link clamp-2" routerLink="/lancamentos">{{ w.title }}</a>
+              }
+            </h3>
+            <p class="meta mt-1 clamp-2">{{ w.note }}</p>
+          </div>
+        </li>
+      }
+    </ul></div>
+    <p class="meta mt-3 lg:hidden">Arraste para ver todos os {{ week.length }} lançamentos.</p>
+  </section>
+}
+
+<!-- Latest -->
+<section class="wrap mt-16" aria-labelledby="ultimas" reveal>
+  <div class="sec-head">
+    <h2 id="ultimas" class="hl text-[26px] sm:text-[30px]">Últimas</h2>
+    <a routerLink="/busca" class="more inline-flex items-center gap-1.5">Buscar <app-icon name="search" [size]="14" /></a>
+  </div>
+  <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    @for (p of latest; track p.slug) { <app-card [p]="p" /> }
+  </div>
+</section>
+
+<!-- Sections -->
+@for (s of sections; track s.key) {
+  <section class="wrap cv mt-20" [attr.aria-labelledby]="'sec-' + s.key" reveal>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow sec-{{ s.key }}">Seção</p>
+        <h2 [id]="'sec-' + s.key" class="hl-xl mt-2 text-[34px] sm:text-[44px]">{{ s.label }}</h2>
+      </div>
+      <a [routerLink]="s.path" class="more inline-flex items-center gap-1.5">Tudo em {{ s.label }} <app-icon name="arrow-right" [size]="14" /></a>
+    </div>
+    <div class="mt-8 grid gap-10 lg:grid-cols-12">
+      @if (s.first) { <app-card class="lg:col-span-7" [p]="s.first" [big]="true" /> }
+      <ul class="divide-y divide-line lg:col-span-5">
+        @for (p of s.more; track p.slug) { <li class="py-5 first:pt-0"><app-card [p]="p" variant="row" [dek]="false" /></li> }
+      </ul>
+    </div>
+  </section>
+}
+
+<!-- Reviews -->
+<section class="cv mt-20 border-y border-line bg-paper/70 py-16" aria-labelledby="reviews" reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Nota da redação</p>
+        <h2 id="reviews" class="hl-xl mt-2 text-[34px] sm:text-[44px]">Reviews</h2>
+      </div>
+      <a routerLink="/reviews" class="more inline-flex items-center gap-1.5">Todas as reviews <app-icon name="arrow-right" [size]="14" /></a>
+    </div>
+    <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+      @for (p of reviews; track p.slug) { <app-card [p]="p" [dek]="false" /> }
+    </div>
+  </div>
+</section>
+
+<!-- Guides + most read -->
+<section class="wrap cv mt-20 grid gap-14 lg:grid-cols-12" aria-label="Guias e mais lidas" reveal>
+  <div class="lg:col-span-8">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Para começar bem</p>
+        <h2 class="hl-xl mt-2 text-[34px] sm:text-[44px]">Guias e listas</h2>
+      </div>
+      <a routerLink="/guias" class="more inline-flex items-center gap-1.5">Todos os guias <app-icon name="arrow-right" [size]="14" /></a>
+    </div>
+    <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2">
+      @for (p of guides; track p.slug) { <app-card [p]="p" /> }
+    </div>
+  </div>
+  <aside class="lg:col-span-4" aria-labelledby="mais-lidas">
+    <div class="well ticks dotgrid p-6">
+      <h2 id="mais-lidas" class="eyebrow">Mais lidas</h2>
+      <ol class="mt-5 space-y-6">
+        @for (p of ranking; track p.slug; let i = $index) {
+          <li class="stretch grid grid-cols-[48px_1fr] items-start gap-3">
+            <span class="rank-n" aria-hidden="true">{{ i + 1 }}</span>
+            <div>
+              <p class="eyebrow sec-{{ p.section }}">{{ label.section(p.section) }}</p>
+              <h3 class="mt-1.5 text-[15.5px] font-medium leading-snug"><a class="stretch-link" [routerLink]="['/artigo', p.slug]">{{ p.title }}</a></h3>
+            </div>
+          </li>
+        }
+      </ol>
+      <p class="meta mt-6">Ranking editorial, sem métricas de audiência.</p>
+    </div>
+  </aside>
+</section>

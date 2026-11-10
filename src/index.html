@@ -1,12 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>G2HubBlog</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>G2 Hub | Games, filmes e séries</title>
+  <base href="/G2HubBlog/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="G2 Hub: notícias, reviews e guias de games, filmes e séries, com datas do TMDB e do IGDB. Projeto de portfólio de Gustavo Martins Gripaldi.">
+  <meta name="author" content="Gustavo Martins Gripaldi">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="G2 Hub" href="https://g2martins.github.io/G2HubBlog/rss.xml">
+  <link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://images.igdb.com">
+  <link rel="preconnect" href="https://image.tmdb.org">
+  <!-- Reveal bootstrap before first paint. Content shows anyway if JS never boots. -->
+  <script>
+    (function () {
+      var c = document.documentElement.classList;
+      c.add('js');
+      setTimeout(function () { if (!c.contains('reveal-ready')) c.add('reveal-all'); }, 3000);
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

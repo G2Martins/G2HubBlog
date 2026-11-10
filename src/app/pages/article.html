@@ -1,0 +1,237 @@
+@if (post(); as p) {
+  @let m = meta()!;
+  <article class="wrap pt-8 sm:pt-10">
+    <nav aria-label="Trilha" class="meta">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a routerLink="/" class="hover:text-ink">Início</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a [routerLink]="label.path(p.section)" class="hover:text-ink">{{ label.section(p.section) }}</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-ink-2">{{ label.kind(p.kind) }}</li>
+      </ol>
+    </nav>
+
+    <header class="mt-6 max-w-4xl">
+      <p class="eyebrow sec-{{ p.section }}">{{ label.section(p.section) }} · {{ label.kind(p.kind) }}</p>
+      <h1 class="hl-xl mt-4 text-[34px] sm:text-[48px] lg:text-[58px]">{{ p.title }}</h1>
+      <p class="dek mt-5 max-w-3xl text-[18px] leading-relaxed sm:text-[20px]">{{ p.dek }}</p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-line pt-5">
+        <div class="flex items-center gap-3">
+          <span class="logo !text-[12px]" aria-hidden="true">G2</span>
+          <p class="text-[14px] leading-tight">
+            Por <a [routerLink]="['/autor', author.slug]" class="font-medium hover:text-accent">{{ author.name }}</a>
+            <span class="block text-[12.5px] text-dim">Edição: {{ author.editor }}</span>
+          </p>
+        </div>
+        <p class="meta flex items-center gap-4">
+          <span class="inline-flex items-center gap-1.5"><app-icon name="calendar" [size]="14" /><time [attr.datetime]="p.date">{{ date() }}</time></span>
+          <span class="inline-flex items-center gap-1.5"><app-icon name="clock" [size]="14" />{{ m.minutes }} min de leitura</span>
+        </p>
+        @if (p.score != null) {
+          <div class="ml-auto flex items-center gap-3">
+            <span class="meta text-right leading-tight">Nota da<br>redação</span>
+            <app-score [value]="p.score" [size]="58" />
+          </div>
+        }
+      </div>
+    </header>
+
+    <figure class="mt-8">
+      <div class="media aspect-video rounded-xl">
+        <img [src]="m.image.src" [attr.srcset]="m.image.srcset" sizes="(min-width: 1280px) 1200px, 100vw" [alt]="p.hero.alt"
+             width="1280" height="720" fetchpriority="high" decoding="async">
+      </div>
+      <figcaption class="meta mt-3">{{ m.image.credit }}</figcaption>
+    </figure>
+
+    @let hasToc = v().toc.length >= 3;
+    <div class="mt-12 grid gap-10 lg:justify-center lg:gap-14 {{ hasToc ? 'lg:grid-cols-[220px_minmax(0,700px)]' : 'lg:grid-cols-[minmax(0,700px)]' }}">
+      <!-- TOC: long posts only. Sticky on desktop, collapsible on mobile. -->
+      @if (hasToc) {
+        <aside>
+          <details class="well p-4 lg:hidden">
+            <summary class="eyebrow cursor-pointer select-none">Neste artigo</summary>
+            <ol class="mt-4 space-y-2.5 text-[14px] text-ink-2">
+              @for (t of v().toc; track t.id) { <li><a [routerLink]="[]" [fragment]="t.id" class="hover:text-ink">{{ t.text }}</a></li> }
+            </ol>
+          </details>
+          <nav class="sticky top-24 hidden lg:block" aria-label="Neste artigo">
+            <p class="eyebrow">Neste artigo</p>
+            <ol class="mt-4 space-y-3 border-l border-line pl-4 text-[13.5px] leading-snug text-ink-2">
+              @for (t of v().toc; track t.id) { <li><a [routerLink]="[]" [fragment]="t.id" class="hover:text-accent">{{ t.text }}</a></li> }
+            </ol>
+          </nav>
+        </aside>
+      }
+
+      <div class="min-w-0">
+        <div class="prose">
+          @for (b of v().blocks; track $index) {
+            @switch (b.t) {
+              @case ('p') { <p [class.lede]="b.lede" [appInline]="b.segs"></p> }
+              @case ('h2') { <h2 [id]="b.id">{{ b.text }}</h2> }
+              @case ('quote') {
+                <blockquote class="border-l-2 border-violet py-1 pl-6 text-[23px] font-light leading-snug tracking-[-0.02em] text-ink sm:text-[27px]">
+                  <span class="text-accent" aria-hidden="true">“</span><span [appInline]="b.segs"></span><span class="text-accent" aria-hidden="true">”</span>
+                  <footer class="meta mt-3 not-italic">Opinião da {{ author.name }}</footer>
+                </blockquote>
+              }
+              @case ('img') {
+                <figure>
+                  <div class="media aspect-video rounded-lg">
+                    <img [src]="b.img.src" [attr.srcset]="b.img.srcset" sizes="(min-width: 1024px) 700px, 100vw" [alt]="b.alt" width="1280" height="720" loading="lazy" decoding="async">
+                  </div>
+                  <figcaption class="meta mt-2.5 !text-[12.5px] leading-relaxed"><span [appInline]="b.caption"></span> {{ b.img.credit }}.</figcaption>
+                </figure>
+              }
+              @case ('list') {
+                @if (b.ordered) {
+                  <ol>@for (it of b.items; track $index) { <li [appInline]="it"></li> }</ol>
+                } @else {
+                  <ul>@for (it of b.items; track $index) { <li [appInline]="it"></li> }</ul>
+                }
+              }
+              @case ('box') {
+                <aside class="rounded-lg border border-line bg-panel px-5 py-4 text-[15.5px] leading-relaxed" [attr.aria-label]="b.title">
+                  <p class="eyebrow">{{ b.title }}</p>
+                  <p class="mt-2.5" [appInline]="b.segs"></p>
+                </aside>
+              }
+              @case ('ficha') {
+                <aside class="well ticks my-10 p-5 sm:p-6" [attr.aria-label]="'Ficha técnica: ' + b.f.title">
+                  <div class="flex items-center justify-between gap-3">
+                    <p class="eyebrow">Ficha técnica · {{ b.f.kind }}</p>
+                    <app-cert [code]="b.f.cert" />
+                  </div>
+                  <div class="mt-5 grid grid-cols-[84px_1fr] gap-4 sm:grid-cols-[112px_1fr] sm:gap-6">
+                    @if (b.f.poster) {
+                      <img class="aspect-[2/3] w-full rounded-md bg-well object-cover" [src]="b.f.poster.src" [attr.srcset]="b.f.poster.srcset" sizes="112px"
+                           [alt]="'Capa de ' + b.f.title" width="264" height="374" loading="lazy" decoding="async">
+                    } @else { <span class="aspect-[2/3] w-full rounded-md bg-well"></span> }
+                    <div class="min-w-0">
+                      <p class="text-[19px] font-semibold leading-tight tracking-[-0.02em] text-ink">{{ b.f.title }}</p>
+                      @if (b.f.original) { <p class="meta mt-1">{{ b.f.original }}</p> }
+                      <dl class="mt-4 grid gap-x-4 gap-y-2 text-[13.5px] leading-snug sm:grid-cols-[128px_1fr]">
+                        @for (r of b.f.rows; track r[0]) {
+                          <dt class="font-mono text-[11px] uppercase tracking-[.08em] text-dim sm:pt-0.5">{{ r[0] }}</dt>
+                          <dd class="mb-1 text-ink-2 sm:mb-0">{{ r[1] }}</dd>
+                        }
+                      </dl>
+                    </div>
+                  </div>
+                  @if (b.f.overview) {
+                    <details class="mt-5 border-t border-line pt-4 text-[14px] leading-relaxed text-ink-2">
+                      <summary class="cursor-pointer font-mono text-[11.5px] uppercase tracking-[.1em] text-dim hover:text-ink">Sinopse oficial</summary>
+                      <p class="mt-3">{{ b.f.overview }}</p>
+                    </details>
+                  }
+                  <p class="meta mt-4 !text-[11px]">Dados: {{ b.f.source }} · atualizados em {{ updated() }}</p>
+                </aside>
+              }
+              @case ('entry') {
+                <section class="border-t border-line pt-8" [attr.aria-labelledby]="b.id">
+                  <div class="grid grid-cols-[64px_1fr] items-start gap-4 sm:grid-cols-[84px_1fr] sm:gap-5">
+                    @if (b.cover) {
+                      <img class="aspect-[2/3] w-full rounded-md bg-well object-cover" [src]="b.cover.src" [attr.srcset]="b.cover.srcset" sizes="84px"
+                           [alt]="'Capa de ' + b.title" width="264" height="374" loading="lazy" decoding="async">
+                    } @else { <span class="aspect-[2/3] w-full rounded-md bg-well"></span> }
+                    <div class="min-w-0">
+                      <h2 [id]="b.id" class="!mt-0"><span class="mr-1 font-mono text-accent">{{ b.n }}.</span> {{ b.title }}</h2>
+                      <p class="meta mt-2 leading-relaxed">{{ b.facts }}</p>
+                    </div>
+                  </div>
+                  @for (t of b.text; track $index) { <p class="mt-4" [appInline]="t"></p> }
+                </section>
+              }
+            }
+          }
+        </div>
+
+        @if (post()!.verdict; as vd) {
+          <section class="well ticks mt-14 p-6 sm:p-8" aria-labelledby="veredito">
+            <div class="flex flex-wrap items-center gap-5">
+              <app-score [value]="p.score!" [size]="84" />
+              <div>
+                <p class="eyebrow">Veredito da redação</p>
+                <h2 id="veredito" class="hl mt-2 text-[24px]">Nota {{ scoreLabel(p.score!) }} de 10</h2>
+              </div>
+            </div>
+            <p class="mt-5 text-[16px] leading-relaxed text-body">{{ vd.summary }}</p>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              <div>
+                <p class="font-mono text-[11px] uppercase tracking-[.12em] text-[#7fe0a6]">Acertos</p>
+                <ul class="mt-3 space-y-2 text-[14.5px] text-ink-2">@for (g of vd.good; track g) { <li class="flex gap-2"><span class="text-[#7fe0a6]" aria-hidden="true">+</span>{{ g }}</li> }</ul>
+              </div>
+              <div>
+                <p class="font-mono text-[11px] uppercase tracking-[.12em] text-[#ff8f8f]">Tropeços</p>
+                <ul class="mt-3 space-y-2 text-[14.5px] text-ink-2">@for (b of vd.bad; track b) { <li class="flex gap-2"><span class="text-[#ff8f8f]" aria-hidden="true">−</span>{{ b }}</li> }</ul>
+              </div>
+            </div>
+            <p class="meta mt-6">Nota de opinião da {{ author.name }}, em escala de 0 a 10.</p>
+          </section>
+        }
+
+        <div class="mt-12 flex flex-col gap-6 border-t border-line pt-8">
+          <div>
+            <p class="eyebrow plain">Tags</p>
+            <ul class="mt-3 flex flex-wrap gap-2">
+              @for (t of p.tags; track t) { <li><a class="chip" [routerLink]="['/tag', label.tag(t)]">#{{ t }}</a></li> }
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow plain">Compartilhar</p>
+            <ul class="mt-3 flex flex-wrap gap-2">
+              @for (s of share(); track s.label) { <li><a class="chip" [href]="s.href" target="_blank" rel="noopener">{{ s.label }}</a></li> }
+              <li>
+                <button type="button" class="chip cursor-pointer" (click)="copy()">
+                  <app-icon [name]="copied() ? 'check' : 'link'" [size]="13" /> {{ copied() ? 'Link copiado' : 'Copiar link' }}
+                </button>
+              </li>
+            </ul>
+            <p class="sr-only" aria-live="polite">{{ copied() ? 'Link copiado' : '' }}</p>
+          </div>
+        </div>
+
+        <section class="well mt-10 p-6" aria-label="Sobre a redação">
+          <div class="flex items-start gap-4">
+            <span class="logo shrink-0" aria-hidden="true">G2<b>HUB</b></span>
+            <div>
+              <p class="font-medium"><a [routerLink]="['/autor', author.slug]" class="hover:text-accent">{{ author.name }}</a></p>
+              <p class="mt-2 text-[14px] leading-relaxed text-ink-2">{{ author.bio }}</p>
+              <p class="meta mt-3">Edição: <a [href]="author.editorUrl" class="text-ink-2 underline underline-offset-2 hover:text-ink">{{ author.editor }}</a> · Textos de demonstração escritos para este projeto de portfólio.</p>
+            </div>
+          </div>
+        </section>
+
+        <nav class="mt-10 grid gap-4 sm:grid-cols-2" aria-label="Mais artigos">
+          @if (nav().prev; as pr) {
+            <a [routerLink]="['/artigo', pr.slug]" class="group rounded-xl border border-line p-5 transition-colors hover:border-accent">
+              <span class="meta inline-flex items-center gap-1.5"><app-icon name="arrow-left" [size]="13" /> Anterior</span>
+              <span class="mt-2 block font-medium leading-snug">{{ pr.title }}</span>
+            </a>
+          } @else { <span></span> }
+          @if (nav().next; as nx) {
+            <a [routerLink]="['/artigo', nx.slug]" class="group rounded-xl border border-line p-5 text-right transition-colors hover:border-accent">
+              <span class="meta inline-flex items-center gap-1.5">Próximo <app-icon name="arrow-right" [size]="13" /></span>
+              <span class="mt-2 block font-medium leading-snug">{{ nx.title }}</span>
+            </a>
+          }
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <section class="wrap cv mt-20" aria-labelledby="relacionados">
+    <div class="sec-head"><h2 id="relacionados" class="hl text-[26px]">Leia também</h2></div>
+    <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      @for (r of related(); track r.slug) { <app-card [p]="r" /> }
+    </div>
+  </section>
+} @else {
+  <section class="wrap py-24 text-center">
+    <p class="eyebrow">Erro 404</p>
+    <h1 class="hl-xl mt-4 text-[40px]">Artigo não encontrado</h1>
+    <p class="dek mx-auto mt-4 max-w-md">O endereço pode ter mudado. Que tal voltar para a capa?</p>
+    <a routerLink="/" class="btn btn-violet mt-8">Ir para a capa</a>
+  </section>
+}
